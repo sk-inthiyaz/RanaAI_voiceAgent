@@ -1,0 +1,39 @@
+# RANA R3 on a Linux server: the voice agent + Caddy (automatic HTTPS certificate for Vobiz's wss:// stream).
+# Start:   docker compose up -d --build        Logs:  docker compose logs -f voice      Files: ./logs/
+services:
+  voice:
+    build: ..
+    restart: unless-stopped
+    env_file: ../.env
+    environment:
+      PUBLIC_URL: https://${DOMAIN}
+      PHONE_HOST: 0.0.0.0
+      PHONE_PORT: "8765"
+    volumes:
+      - ./logs:/app/logs
+    expose:
+      - "8765"
+    logging:
+      driver: json-file
+      options: { max-size: "20m", max-file: "5" }
+
+  caddy:
+    image: caddy:2.8
+    restart: unless-stopped
+    depends_on: [voice]
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+volumes:
+  caddy_data:
+  caddy_config:

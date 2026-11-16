@@ -1,0 +1,26 @@
+# Secrets — NEVER commit these. Copy .env.example to .env on your own PC.
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Call logs and transcripts (real customer phone numbers and conversations)
+logs/
+demo_logs/
+server_logs/
+
+# Audio recordings (customer calls, test clips)
+*.mp3
+*.wav
+*.m4a
+
+# Editor / OS junk
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

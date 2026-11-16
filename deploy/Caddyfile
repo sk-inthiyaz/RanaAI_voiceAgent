@@ -1,0 +1,5 @@
+# HTTPS for the phone server. DOMAIN is e.g. 13-233-10-20.sslip.io (works with no domain purchase) or voice.yourdomain.com.
+# Caddy gets and renews the certificate automatically.
+{$DOMAIN} {
+	reverse_proxy voice:8765
+}

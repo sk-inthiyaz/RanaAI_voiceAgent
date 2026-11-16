@@ -1,0 +1,10 @@
+.venv
+logs
+.env
+.env.*
+__pycache__
+*.mp3
+*.wav
+deploy
+README.md
+v4_voices.txt
